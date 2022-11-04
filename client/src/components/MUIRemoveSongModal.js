@@ -29,7 +29,7 @@ export default function MUIRemoveSongModal() {
     
     let modalClass = "modal";
     if (store.isRemoveSongModalOpen()) {
-        modalClass += " is-visible";
+        modalClass += "-is-visible";
     }
     let songTitle = "";
     if (store.currentSong) {
