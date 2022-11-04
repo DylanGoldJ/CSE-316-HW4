@@ -90,6 +90,9 @@ export default function AppBanner() {
         else
             return <AccountCircle />;
     }
+    function handleHomeClick(){
+        store.closeCurrentList()
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -101,7 +104,7 @@ export default function AppBanner() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: 'white' }} to='/'>⌂</Link>
+                        <IconButton onClick={handleHomeClick} style={{ textDecoration: 'none', color: 'white' }} to='/'>⌂</IconButton>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
