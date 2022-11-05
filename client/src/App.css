@@ -189,6 +189,7 @@ body {
 .list-card-button {
   float: right;
   transform: scale(2);
+  font-size : 10pt;
 }
 
 #workspace-home,
@@ -339,6 +340,14 @@ input {
 
 #confirm-cancel-container {
   text-align: center;
+}
+
+#song-cards-container{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 80%;
+  overflow-y:scroll;
 }
 
 /* ANIMATIONS
