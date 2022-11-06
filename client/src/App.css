@@ -349,6 +349,34 @@ input {
   height: 80%;
   overflow-y:scroll;
 }
+.modal-north {
+  font-size:32pt;
+  font-weight: bold;
+  background-color: #669966;
+  color:white;
+}
+
+.modal-center {
+  display: grid;
+  grid-template-columns: 30% 65%;
+  grid-template-rows: 33% 33% 33%;
+  gap: 10px 20px;
+  font-size: 30pt;
+}
+
+span {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.modal-south {
+  display:flex;
+  flex-direction: row;
+  background-color: lightgray;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* ANIMATIONS
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
