@@ -10,13 +10,15 @@ export const AuthActionType = {
     GET_LOGGED_IN: "GET_LOGGED_IN",
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
-    REGISTER_USER: "REGISTER_USER"
+    REGISTER_USER: "REGISTER_USER",
+    CURRENT_ERROR: "CURRENT_ERROR"
 }
 
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        error : null
     });
     const history = useHistory();
 
@@ -51,9 +53,27 @@ function AuthContextProvider(props) {
                     loggedIn: true
                 })
             }
+            case AuthActionType.CURRENT_ERROR:{
+                return setAuth({
+                    user : null,
+                    loggedIn: false,
+                    error:payload.error
+                })
+            }
             default:
                 return auth;
         }
+    }
+
+    auth.setError = (initError) =>{
+        authReducer({
+            type: AuthActionType.CURRENT_ERROR,
+            payload:{error: initError}
+        });
+    }
+
+    auth.getError = () => {
+        return auth.error
     }
 
     auth.getLoggedIn = async function () {
@@ -70,6 +90,7 @@ function AuthContextProvider(props) {
     }
 
     auth.registerUser = async function(firstName, lastName, email, password, passwordVerify) {
+        try{
         const response = await api.registerUser(firstName, lastName, email, password, passwordVerify);      
         if (response.status === 200) {
             authReducer({
@@ -80,9 +101,14 @@ function AuthContextProvider(props) {
             })
             history.push("/"); //Changed so user logins in automatically
         }
+        }catch(RegError){
+            console.log("Error registering")
+            auth.setError( RegError.response.data.errorMessage)
+        }
     }
 
     auth.loginUser = async function(email, password) {
+        try{
         const response = await api.loginUser(email, password);
         if (response.status === 200) {
             authReducer({
@@ -92,6 +118,10 @@ function AuthContextProvider(props) {
                 }
             })
             history.push("/");
+        }
+        }catch(LoginError){
+            console.log("Error Logging in")
+            auth.setError(LoginError.response.data.errorMessage)
         }
     }
 
